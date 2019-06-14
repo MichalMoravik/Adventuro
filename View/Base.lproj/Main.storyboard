@@ -61,32 +61,58 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bYV-WX-lR9">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Plitvice lakes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URr-Fr-hPN">
+                                        <rect key="frame" x="8" y="36" width="188" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="33"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jPk-s9-eCl">
-                                        <rect key="frame" x="8" y="216" width="359" height="235"/>
+                                        <rect key="frame" x="8" y="92" width="359" height="190"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="235" id="cJG-Hc-vIB"/>
+                                            <constraint firstAttribute="height" constant="190" id="cJG-Hc-vIB"/>
                                         </constraints>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BLABLABLA" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wRd-Tq-6Rd">
-                                        <rect key="frame" x="90" y="170" width="195" height="38"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dX-qV-e6V">
+                                        <rect key="frame" x="100" y="332" width="175" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.29171133259999998" blue="0.3214161505" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="ADD PHOTO">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addPhotoButtonPressed:" destination="vlU-Ot-hNL" eventType="touchUpInside" id="gcX-pX-Ryd"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQM-7t-hou">
+                                        <rect key="frame" x="100" y="579" width="175" height="30"/>
+                                        <color key="backgroundColor" red="1" green="0.29171133259999998" blue="0.3214161505" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="ADD ADVENTURE">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="adventureButtonPressed:" destination="vlU-Ot-hNL" eventType="touchUpInside" id="FdW-CJ-U7i"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="jPk-s9-eCl" firstAttribute="centerY" secondItem="bYV-WX-lR9" secondAttribute="centerY" id="7qa-om-FQW"/>
+                                    <constraint firstAttribute="trailing" secondItem="IQM-7t-hou" secondAttribute="trailing" constant="100" id="2A9-1h-SmA"/>
+                                    <constraint firstItem="jPk-s9-eCl" firstAttribute="top" secondItem="URr-Fr-hPN" secondAttribute="bottom" constant="16" id="42L-DH-zFV"/>
+                                    <constraint firstItem="URr-Fr-hPN" firstAttribute="top" secondItem="bYV-WX-lR9" secondAttribute="top" constant="36" id="8OY-3q-uJt"/>
+                                    <constraint firstItem="IQM-7t-hou" firstAttribute="leading" secondItem="bYV-WX-lR9" secondAttribute="leading" constant="100" id="HO5-gD-0hZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="URr-Fr-hPN" secondAttribute="trailing" constant="179" id="Iow-7Y-uFI"/>
                                     <constraint firstItem="jPk-s9-eCl" firstAttribute="centerX" secondItem="bYV-WX-lR9" secondAttribute="centerX" id="M7X-J4-1uP"/>
-                                    <constraint firstAttribute="trailing" secondItem="wRd-Tq-6Rd" secondAttribute="trailing" constant="90" id="QSL-GL-9yF"/>
-                                    <constraint firstItem="jPk-s9-eCl" firstAttribute="top" secondItem="wRd-Tq-6Rd" secondAttribute="bottom" constant="8" symbolic="YES" id="aaQ-EH-WtV"/>
+                                    <constraint firstItem="jPk-s9-eCl" firstAttribute="trailing" secondItem="bYV-WX-lR9" secondAttribute="trailingMargin" id="Mrg-bq-gTA"/>
+                                    <constraint firstItem="1dX-qV-e6V" firstAttribute="top" secondItem="jPk-s9-eCl" secondAttribute="bottom" constant="50" id="Sfp-kt-q3S"/>
+                                    <constraint firstAttribute="trailing" secondItem="1dX-qV-e6V" secondAttribute="trailing" constant="100" id="UMR-Fh-VtB"/>
+                                    <constraint firstItem="IQM-7t-hou" firstAttribute="top" secondItem="1dX-qV-e6V" secondAttribute="bottom" constant="217" id="ZQ3-pM-PqY"/>
                                     <constraint firstAttribute="bottom" secondItem="jPk-s9-eCl" secondAttribute="bottom" constant="217" id="bUR-qs-31b"/>
                                     <constraint firstItem="jPk-s9-eCl" firstAttribute="leading" secondItem="bYV-WX-lR9" secondAttribute="leadingMargin" id="mQo-E1-GuN"/>
-                                    <constraint firstItem="wRd-Tq-6Rd" firstAttribute="centerX" secondItem="bYV-WX-lR9" secondAttribute="centerX" id="sfq-bR-Qua"/>
-                                    <constraint firstItem="wRd-Tq-6Rd" firstAttribute="leading" secondItem="bYV-WX-lR9" secondAttribute="leading" constant="90" id="uRD-LN-jgb"/>
+                                    <constraint firstItem="1dX-qV-e6V" firstAttribute="leading" secondItem="bYV-WX-lR9" secondAttribute="leading" constant="100" id="oLU-1K-ysu"/>
+                                    <constraint firstItem="URr-Fr-hPN" firstAttribute="leading" secondItem="bYV-WX-lR9" secondAttribute="leading" constant="8" id="yPe-cz-mgK"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -100,8 +126,10 @@
                         <viewLayoutGuide key="safeArea" id="RbX-cq-E3B"/>
                     </view>
                     <connections>
+                        <outlet property="addPhotoButton" destination="1dX-qV-e6V" id="wdN-S0-jRp"/>
+                        <outlet property="adventureButton" destination="IQM-7t-hou" id="I57-2S-tJv"/>
                         <outlet property="locationDescription" destination="jPk-s9-eCl" id="ccc-0q-nWk"/>
-                        <outlet property="locationName" destination="wRd-Tq-6Rd" id="D3i-4A-V2i"/>
+                        <outlet property="locationName" destination="URr-Fr-hPN" id="TIb-c4-R7e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G4V-Db-uXV" userLabel="First Responder" sceneMemberID="firstResponder"/>

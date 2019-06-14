@@ -8,7 +8,6 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseAuth
 
 class DatabaseService {
     
@@ -26,6 +25,25 @@ class DatabaseService {
                 completionBlock(locationName as! String, locationDescription as! String)
             } else {
                 print("DatabaseService: Could not get data")
+            }
+        }
+    }
+    
+    func saveNewAdventure(locationID:String, usersNotes:String, userID:String, completionBlock: @escaping (_ newAdventureDocumentID: String?, _ success:Bool) -> Void) {
+        var docRef: DocumentReference? = nil
+        docRef = db.collection("users").document(userID).collection("adventures").addDocument(data: [
+            "locationID": locationID,
+            "notes": usersNotes
+        ]) { error in
+            if let error = error {
+                print("Error while adding new adventure to firestore: \(error)")
+            } else {
+                if let docRef = docRef {
+                    completionBlock(docRef.documentID, true)
+                } else {
+                    print("Could not get a reference to new adventure document while adding new adventure")
+                    completionBlock(nil, false)
+                }
             }
         }
     }
