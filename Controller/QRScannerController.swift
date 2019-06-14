@@ -20,6 +20,11 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
             print("Automatically signed in user: \(currentUser.email)")
         }
         
+        DatabaseService.shared.getAllAdventuresFromDB(userID: (AuthenticationService.shared.currentUser?.uid)!) {(adventures) in
+            
+            print("So all Adventures in a list are: \(adventures)")
+        }
+        
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
@@ -89,15 +94,15 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            performSegue(withIdentifier: "adventureToAddSegue", sender: stringValue)
+            performSegue(withIdentifier: "scannedLocationSegue", sender: stringValue)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.identifier == "adventureToAddSegue" {
-            let adventureToAddViewController = segue.destination as! AdventureToAddViewController
-            adventureToAddViewController.locationIDFromQR = sender as? String
+        if segue.identifier == "scannedLocationSegue" {
+            let scannedLocationViewController = segue.destination as! ScannedLocationViewController
+            scannedLocationViewController.locationIDFromQR = sender as? String
         }
     }
     

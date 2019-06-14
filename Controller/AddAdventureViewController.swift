@@ -1,27 +1,25 @@
 //
-//  AdventureToAddViewController.swift
+//  AddAdventureViewController.swift
 //  Adventuro
 //
-//  Created by Michal Moravík on 12/06/2019.
+//  Created by Michal Moravík on 14/06/2019.
 //  Copyright © 2019 Michal Moravík. All rights reserved.
 //
 
 import UIKit
 
-class AdventureToAddViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
-    var locationIDFromQR: String?
-    @IBOutlet weak var locationDescription: UITextView!
-    @IBOutlet weak var locationName: UILabel!
+class AddAdventureViewController: UIViewController, UINavigationControllerDelegate,
+    UIImagePickerControllerDelegate {
     @IBOutlet weak var adventureButton: UIButton!
     @IBOutlet weak var addPhotoButton: UIButton!
+    @IBOutlet weak var notesTextView: UITextView!
     var takenPhoto: UIImage!
     let currentUser = AuthenticationService.shared.currentUser
-    
+    var locationIDFromQR: String!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        locationDescription.isEditable = false
+
         adventureButton.isEnabled = false
         adventureButton.backgroundColor = #colorLiteral(red: 1, green: 0.2917113326, blue: 0.3214161505, alpha: 0.6)
         
@@ -30,39 +28,13 @@ class AdventureToAddViewController: UIViewController, UINavigationControllerDele
         } else {
             // neviem
         }
-        
-        if let locationIDFromQR = locationIDFromQR {
-            populateLocationFields(locationID: locationIDFromQR)
-        } else {
-            print("Could not get locationIDFromQR")
-        }
     }
     
-    func populateLocationFields(locationID:String) {
-        
-        let child = SpinnerViewController()
-        
-        // add the spinner view controller
-        addChild(child)
-        child.view.frame = view.frame
-        view.addSubview(child.view)
-        child.didMove(toParent: self)
-
-        
-        DatabaseService.shared.getLocationDataByID(locationID: locationID) { (locationName,locationDescription) in
-            self.locationName.text = locationName
-            self.locationDescription.text = locationDescription
-            
-            child.willMove(toParent: nil)
-            child.view.removeFromSuperview()
-            child.removeFromParent()
-        }
-    }
-
+    
     @IBAction func addPhotoButtonPressed(_ sender: Any) {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .camera
-       // imagePicker.allowsEditing = false
+        // imagePicker.allowsEditing = false
         imagePicker.delegate = self
         present(imagePicker, animated: true)
     }
@@ -70,6 +42,7 @@ class AdventureToAddViewController: UIViewController, UINavigationControllerDele
     @IBAction func adventureButtonPressed(_ sender: Any) {
         self.adventureButton.isEnabled = false
         let child = SpinnerViewController()
+        let usersNotesToSave = notesTextView.text!
         
         // add the spinner view controller
         addChild(child)
@@ -77,7 +50,7 @@ class AdventureToAddViewController: UIViewController, UINavigationControllerDele
         view.addSubview(child.view)
         child.didMove(toParent: self)
         
-        DatabaseService.shared.saveNewAdventure(locationID: locationIDFromQR!, usersNotes: "dummy", userID: (currentUser?.uid)!) { (newAdventureDocumentID, success) in
+        DatabaseService.shared.saveNewAdventure(locationID: locationIDFromQR, usersNotes: usersNotesToSave, userID: (currentUser?.uid)!) { (newAdventureDocumentID, success) in
             if newAdventureDocumentID != nil && success == true {
                 StorageService.shared.saveUsersAdventurePhoto(userID: (self.currentUser?.uid)!, takenPhoto: self.takenPhoto, adventureID: newAdventureDocumentID!) {(success) in
                     if success == true {
@@ -86,6 +59,8 @@ class AdventureToAddViewController: UIViewController, UINavigationControllerDele
                         child.willMove(toParent: nil)
                         child.view.removeFromSuperview()
                         child.removeFromParent()
+                        
+                        self.performSegue(withIdentifier: "addAdventureCompleteSegue", sender: nil)
                     }
                 }
             }
@@ -116,14 +91,8 @@ class AdventureToAddViewController: UIViewController, UINavigationControllerDele
         adventureButton.backgroundColor = #colorLiteral(red: 1, green: 0.2917113326, blue: 0.3214161505, alpha: 1)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
     }
-    */
+    
 
-}

@@ -23,9 +23,13 @@ class LoginViewController: UIViewController {
         AuthenticationService.shared.signIn(email: email, password: password) {[weak self] (success) in
             if (success) {
                 print("User with this email: \(email) was successfuly signed in!")
-                if let tabbar = (self?.storyboard?.instantiateViewController(withIdentifier: "tabbar") as? UITabBarController) {
+                
+                /*if let tabbar = (self?.storyboard?.instantiateViewController(withIdentifier: "tabbar") as? UITabBarController) {
                     self?.present(tabbar, animated: true, completion: nil)
-                }
+                }*/
+                
+                self!.performSegue(withIdentifier: "showTabBarSegue", sender: nil)
+                
             } else {
                 print("User could not be signed in!")
             }

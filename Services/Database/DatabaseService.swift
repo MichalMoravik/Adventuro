@@ -24,7 +24,7 @@ class DatabaseService {
                 let locationDescription = document.get("description")
                 completionBlock(locationName as! String, locationDescription as! String)
             } else {
-                print("DatabaseService: Could not get data")
+                print("DatabaseService: Could not find document")
             }
         }
     }
@@ -47,4 +47,50 @@ class DatabaseService {
             }
         }
     }
+    
+    // to populate the tableView
+    func getAllAdventuresFromDB(userID:String, completionBlock: @escaping (_ allAdventuresArray: [Adventure]) -> Void) {
+        var adventures: [Adventure] = []
+        let adventuresCollection = Firestore.firestore().collection("users")
+            .document(userID).collection("adventures")
+        
+        let dispatchGroup = DispatchGroup()
+        adventuresCollection.addSnapshotListener { querySnapshot, error in
+            for adventure in querySnapshot!.documents{
+                let adventureID = adventure.documentID
+                let locationIDFromAdventure = adventure.get("locationID") //data()["locationID"]
+                
+                print("vnutri for each")
+                
+                print("adventureID is: \(adventureID)")
+                print("locationID in adventure is: \(locationIDFromAdventure as! String)")
+            
+                dispatchGroup.enter()
+                self.getLocationNameFromID(locationID: locationIDFromAdventure as! String) {(locationName) in
+                    let adventure = Adventure(locationName: locationName, adventureID: adventureID)
+                    adventures.append(adventure)
+                    print("new adventure object: \(adventure.adventureID) and place \(adventure.locationName)")
+                    dispatchGroup.leave()
+                }
+            } // end for each adventure document
+            dispatchGroup.notify(queue: .main) {
+                print("vonku z for eachu")
+                completionBlock(adventures)
+            }
+            
+        }
+    }
+    
+    func getLocationNameFromID(locationID:String, completionBlock: @escaping (_ locationName: String) -> Void) {
+        let locationDocument = Firestore.firestore().collection("locations").document(locationID)
+        locationDocument.getDocument { (document, error) in
+            if let location = document, location.exists {
+                let locationName = location.get("name") as! String
+                completionBlock(locationName)
+            } else {
+                print("getLocationNameFromID: Could not find location document")
+            }
+        }
+    }
 }
+
