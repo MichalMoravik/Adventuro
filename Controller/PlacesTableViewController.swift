@@ -10,12 +10,32 @@ import UIKit
 
 class PlacesTableViewController: UITableViewController {
 
+    var allAdventures: [Adventure] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
+        getAllAdventures()
     }
 
+    // should be called only once per lifecycle and after that only when user adds new adventure
+    func getAllAdventures(){
+        let child = SpinnerViewController()
+        
+        // add the spinner view controller
+        addChild(child)
+        child.view.frame = view.frame
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+        
+        DatabaseService.shared.getAllAdventuresFromDB(userID: (AuthenticationService.shared.currentUser?.uid)!) {(adventuresFromService) in
+            self.allAdventures = adventuresFromService
+            self.tableView.reloadData()
+            
+            child.willMove(toParent: nil)
+            child.view.removeFromSuperview()
+            child.removeFromParent()
+        }
+    }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -23,18 +43,18 @@ class PlacesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return allAdventures.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "adventureCell") as! AdventureCell
+        
+        cell.adventureCellLabel.text = self.allAdventures[indexPath.row].locationName
+        
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

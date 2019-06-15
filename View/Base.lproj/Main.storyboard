@@ -194,7 +194,7 @@
                         <outlet property="addPhotoButton" destination="BgK-E1-1kp" id="j87-ft-1HP"/>
                         <outlet property="adventureButton" destination="40K-Im-YW3" id="IAd-eG-kOi"/>
                         <outlet property="notesTextView" destination="EzY-ir-l5g" id="98f-ML-9Fv"/>
-                        <segue destination="eQg-gb-Hpa" kind="show" identifier="addAdventureCompleteSegue" id="q2Z-j4-Qca"/>
+                        <segue destination="49e-Tb-3d3" kind="show" identifier="addAdventureCompleteSegue" id="ce1-bA-ix7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCa-Hn-t1S" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -204,7 +204,7 @@
         <!--Item-->
         <scene sceneID="wLL-Jw-RkA">
             <objects>
-                <tableViewController id="eQg-gb-Hpa" sceneMemberID="viewController">
+                <tableViewController id="eQg-gb-Hpa" customClass="PlacesTableViewController" customModule="Adventuro" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2tl-je-gyu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -314,7 +314,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
             <objects>
-                <tabBarController storyboardIdentifier="tabbar" id="49e-Tb-3d3" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabbar" id="49e-Tb-3d3" customClass="TabBarController" customModule="Adventuro" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -334,6 +334,6 @@
         <image name="first" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gWr-Cp-Aor"/>
+        <segue reference="ce1-bA-ix7"/>
     </inferredMetricsTieBreakers>
 </document>

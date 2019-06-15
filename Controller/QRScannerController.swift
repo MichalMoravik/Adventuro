@@ -20,11 +20,6 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
             print("Automatically signed in user: \(currentUser.email)")
         }
         
-        DatabaseService.shared.getAllAdventuresFromDB(userID: (AuthenticationService.shared.currentUser?.uid)!) {(adventures) in
-            
-            print("So all Adventures in a list are: \(adventures)")
-        }
-        
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         
