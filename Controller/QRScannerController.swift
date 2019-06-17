@@ -16,10 +16,6 @@ class QRScannerController: UIViewController, AVCaptureMetadataOutputObjectsDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let currentUser = AuthenticationService.shared.currentUser {
-            print("Automatically signed in user: \(currentUser.email)")
-        }
-        
         view.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
         

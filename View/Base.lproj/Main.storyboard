@@ -380,6 +380,7 @@
                     <size key="freeformSize" width="375" height="1200"/>
                     <connections>
                         <outlet property="locationDescription" destination="vxl-jD-btE" id="93E-57-XAd"/>
+                        <outlet property="locationImageView" destination="6k6-Mo-dgx" id="riZ-bb-tiT"/>
                         <outlet property="locationName" destination="FHN-ub-5uC" id="DMQ-XV-EvO"/>
                         <outlet property="usersNotes" destination="JaE-f9-VBK" id="Eme-Mj-scd"/>
                         <outlet property="usersPhotoImageView" destination="3NM-eD-qKA" id="UzF-Tb-BuX"/>

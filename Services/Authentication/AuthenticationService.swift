@@ -11,7 +11,6 @@ import FirebaseAuth
 
 class AuthenticationService:AuthenticationProtocol {
     static let shared = AuthenticationService()
-    
     var currentUser = Auth.auth().currentUser
     
     func signIn(email: String, password: String, completionBlock: @escaping (_ success: Bool) -> Void) {

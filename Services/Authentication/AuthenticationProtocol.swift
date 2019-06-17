@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 protocol AuthenticationProtocol {
-    
+    var currentUser:User? { get }
     func signIn(email: String, password: String, completionBlock: @escaping (_ success: Bool) -> Void)
 }

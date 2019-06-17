@@ -12,6 +12,7 @@ class AdventureDetailsViewController: UIViewController {
     @IBOutlet weak var usersNotes: UITextView!
     @IBOutlet weak var usersPhotoImageView: UIImageView!
     @IBOutlet weak var locationName: UILabel!
+    @IBOutlet weak var locationImageView: UIImageView!
     @IBOutlet weak var locationDescription: UITextView!
     var adventureIDFromTableView: String?
     let currentUser = AuthenticationService.shared.currentUser
@@ -34,6 +35,9 @@ class AdventureDetailsViewController: UIViewController {
                 self.locationName.text = locationName
                 self.locationDescription.text = locationDescription
             }
+            StorageService.shared.retrieveLocationImage(locationID: locationID, completionBlock: { (image) in
+                self.locationImageView.image = image
+            })
             self.dispatchGroup.leave()
         }
     }
@@ -57,7 +61,6 @@ class AdventureDetailsViewController: UIViewController {
     func showSpinner() {
         SpinnerViewController.shared.startSpinner(targetViewController: self)
         dispatchGroup.notify(queue: .main) {
-            print("done")
             SpinnerViewController.shared.stopSpinner()
         }
     }

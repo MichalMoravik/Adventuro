@@ -9,24 +9,17 @@
 import UIKit
 
 class ScannedLocationViewController: UIViewController {
-    
     @IBOutlet weak var locationImageView: UIImageView!
     @IBOutlet weak var locationDescription: UITextView!
     @IBOutlet weak var locationName: UILabel!
     var locationIDFromQR: String?
     let currentUser = AuthenticationService.shared.currentUser
+    let dispatchGroup = DispatchGroup()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationDescription.isEditable = false
 
-        if currentUser != nil {
-            print("Automatically signed in user: \(currentUser!.email)")
-        } else {
-            // neviem
-        }
-        
         if let locationIDFromQR = locationIDFromQR {
             populateLocationFields(locationID: locationIDFromQR)
             populateLocationImageView(locationID: locationIDFromQR)
@@ -36,29 +29,19 @@ class ScannedLocationViewController: UIViewController {
     }
     
     func populateLocationFields(locationID:String) {
-        
-        let child = SpinnerViewController()
-        
-        // add the spinner view controller
-        addChild(child)
-        child.view.frame = view.frame
-        view.addSubview(child.view)
-        child.didMove(toParent: self)
-
-        
+        dispatchGroup.enter()
         DatabaseService.shared.getLocationDataByID(locationID: locationID) { (locationName,locationDescription) in
             self.locationName.text = locationName
             self.locationDescription.text = locationDescription
-            
-            child.willMove(toParent: nil)
-            child.view.removeFromSuperview()
-            child.removeFromParent()
+            self.dispatchGroup.leave()
         }
     }
     
     func populateLocationImageView(locationID:String) {
+        dispatchGroup.enter()
         StorageService.shared.retrieveLocationImage(locationID: locationID) { (photo) in
             self.locationImageView.image = photo
+            self.dispatchGroup.leave()
         }
     }
 
@@ -73,5 +56,11 @@ class ScannedLocationViewController: UIViewController {
             addAdventureViewController.locationIDFromQR = sender as? String
         }
     }
-
+    
+    func showSpinner() {
+        SpinnerViewController.shared.startSpinner(targetViewController: self)
+        dispatchGroup.notify(queue: .main) {
+            SpinnerViewController.shared.stopSpinner()
+        }
+    }
 }

@@ -19,7 +19,6 @@ class DatabaseService {
         
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
-               // let data = document.data().map(String.init(describing:)) ?? "nil"
                 let locationName = document.get("name")
                 let locationDescription = document.get("description")
                 completionBlock(locationName as! String, locationDescription as! String)
@@ -73,7 +72,6 @@ class DatabaseService {
         }
     }
     
-    // to populate the tableView
     func getAllAdventuresFromDB(userID:String, completionBlock: @escaping (_ allAdventuresArray: [Adventure]) -> Void) {
         var adventures: [Adventure] = []
         let adventuresCollection = Firestore.firestore().collection("users").document(userID).collection("adventures")
@@ -82,13 +80,8 @@ class DatabaseService {
         adventuresCollection.addSnapshotListener { querySnapshot, error in
             for adventure in querySnapshot!.documents{
                 let adventureID = adventure.documentID
-                let locationIDFromAdventure = adventure.get("locationID") //data()["locationID"]
+                let locationIDFromAdventure = adventure.get("locationID")
                 
-                print("vnutri for each")
-                
-                print("adventureID is: \(adventureID)")
-                print("locationID in adventure is: \(locationIDFromAdventure as! String)")
-            
                 dispatchGroup.enter()
                 self.getLocationNameFromID(locationID: locationIDFromAdventure as! String) {(locationName) in
                     let adventure = Adventure(locationName: locationName, adventureID: adventureID)
@@ -96,12 +89,10 @@ class DatabaseService {
                     print("new adventure object: \(adventure.adventureID) and place \(adventure.locationName)")
                     dispatchGroup.leave()
                 }
-            } // end for each adventure document
+            }
             dispatchGroup.notify(queue: .main) {
-                print("vonku z for eachu")
                 completionBlock(adventures)
             }
-            
         }
     }
     

@@ -10,21 +10,12 @@ import Foundation
 import FirebaseStorage
 
 class StorageService {
-    
-    let storage = Storage.storage() // storage object
+    let storage = Storage.storage()
     static let shared = StorageService()
     let compressionQuality: CGFloat = 0.5 // medium
     
-    func getLocationImageFromDB() {
-        //let storageRef = storage.reference().child("locations")
-        
-    }
-    
-    func saveUsersAdventurePhoto(/*view: UIView,*/userID:String, takenPhoto:UIImage, adventureID:String, completionBlock: @escaping (_ success: Bool) -> Void) {
+    func saveUsersAdventurePhoto(userID:String, takenPhoto:UIImage, adventureID:String, completionBlock: @escaping (_ success: Bool) -> Void) {
         let storageRef = storage.reference().child("usersPhotos/\((userID))/\(adventureID)")
-       // let cropImageRatio = takenPhoto.getCropRatio()
-       // let newWidthBasedOnControllerWidth = view.frame.width / cropImageRatio
-        
         let jpegToSave = takenPhoto.jpegData(compressionQuality: compressionQuality)
         
         storageRef.putData(jpegToSave!, metadata: nil, completion: { (metadata, error) in
@@ -39,7 +30,7 @@ class StorageService {
     func retrieveUsersAdventurePhoto(userID:String, adventureID: String, completionBlock: @escaping (_ photo: UIImage?) -> Void) {
         let storageRef = storage.reference().child("usersPhotos/\(userID)/\(adventureID)")
         
-        storageRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
+        storageRef.getData(maxSize: 20 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Could not retrieve image from storage error: \(error)")
             } else {
@@ -51,7 +42,7 @@ class StorageService {
     
     func retrieveLocationImage(locationID:String,completionBlock: @escaping (_ photo: UIImage?) -> Void) {
         let storageRef = storage.reference().child("locations/\(locationID)")
-        storageRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
+        storageRef.getData(maxSize: 20 * 1024 * 1024) { data, error in
             if let error = error {
                 print("Could not retrieve image from storage error: \(error)")
             } else {
