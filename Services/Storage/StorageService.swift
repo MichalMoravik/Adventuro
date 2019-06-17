@@ -24,6 +24,7 @@ class StorageService {
         let storageRef = storage.reference().child("usersPhotos/\((userID))/\(adventureID)")
        // let cropImageRatio = takenPhoto.getCropRatio()
        // let newWidthBasedOnControllerWidth = view.frame.width / cropImageRatio
+        
         let jpegToSave = takenPhoto.jpegData(compressionQuality: compressionQuality)
         
         storageRef.putData(jpegToSave!, metadata: nil, completion: { (metadata, error) in
@@ -34,12 +35,32 @@ class StorageService {
             }
         })
     }
+    
+    func retrieveUsersAdventurePhoto(userID:String, adventureID: String, completionBlock: @escaping (_ photo: UIImage?) -> Void) {
+        let storageRef = storage.reference().child("usersPhotos/\(userID)/\(adventureID)")
+        
+        storageRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
+            if let error = error {
+                print("Could not retrieve image from storage error: \(error)")
+            } else {
+                let photo = UIImage(data: data!)
+                completionBlock(photo)
+            }
+        }
+    }
+    
+    func retrieveLocationImage(locationID:String,completionBlock: @escaping (_ photo: UIImage?) -> Void) {
+        let storageRef = storage.reference().child("locations/\(locationID)")
+        storageRef.getData(maxSize: 100 * 1024 * 1024) { data, error in
+            if let error = error {
+                print("Could not retrieve image from storage error: \(error)")
+            } else {
+                let photo = UIImage(data: data!)
+                completionBlock(photo)
+            }
+        }
+    }
 }
 
-/* extension for storing cropped photo to the storage so it does not take unnecessary big space
-extension UIImage {
-    func getCropRatio() -> CGFloat {
-        let widthRation = CGFloat(self.size.width / self.size.height)
-        return widthRation
-    }
-}*/
+
+

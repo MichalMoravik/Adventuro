@@ -10,11 +10,12 @@ import Foundation
 import UIKit
 
 class SpinnerViewController: UIViewController {
+    static let shared = SpinnerViewController()
     var spinner = UIActivityIndicatorView(style: .whiteLarge)
-    
     override func loadView() {
+        spinner.color = .black
         view = UIView()
-        view.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        view.backgroundColor = UIColor(white: 1, alpha: 1.0)
         
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.startAnimating()
@@ -24,18 +25,16 @@ class SpinnerViewController: UIViewController {
         spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
-    func startSpinner(spinnerView:SpinnerViewController) {
-        
-        // add the spinner view controller
-        addChild(spinnerView)
-        spinnerView.view.frame = view.frame
-        view.addSubview(spinnerView.view)
-        spinnerView.didMove(toParent: self)
+    func startSpinner(targetViewController:UIViewController) {
+        targetViewController.addChild(SpinnerViewController.shared)
+        SpinnerViewController.shared.view.frame = targetViewController.view.frame
+        targetViewController.view.addSubview(SpinnerViewController.shared.view)
+        SpinnerViewController.shared.didMove(toParent: targetViewController)
     }
     
-    func stopSpinner(spinnerView:SpinnerViewController) {
-        spinnerView.willMove(toParent: nil)
-        spinnerView.view.removeFromSuperview()
-        spinnerView.removeFromParent()
+    func stopSpinner() {
+        SpinnerViewController.shared.willMove(toParent: nil)
+        SpinnerViewController.shared.view.removeFromSuperview()
+        SpinnerViewController.shared.removeFromParent()
     }
 }

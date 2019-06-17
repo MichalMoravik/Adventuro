@@ -49,13 +49,25 @@ class PlacesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "adventureCell") as! AdventureCell
-        
         cell.adventureCellLabel.text = self.allAdventures[indexPath.row].locationName
-        
         return cell
     }
     
-
+    //showAdventureDetailsSegue is segue from the cell to the AdventureDetailsViewController
+    //find method responsible for clicking on cell just in case that they ask
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "showAdventureDetailsSegue" {
+            let adventureDetailsViewController = segue.destination as! AdventureDetailsViewController
+            if let selectedIndex = self.tableView.indexPathForSelectedRow?.row {
+                adventureDetailsViewController.adventureIDFromTableView = allAdventures[selectedIndex].adventureID
+            } else {
+                print("Prepare in PlacesTableView: could not get index of selected row in the tableview")
+            }
+        }
+    }
+    
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

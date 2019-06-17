@@ -28,6 +28,8 @@ class AddAdventureViewController: UIViewController, UINavigationControllerDelega
         } else {
             // neviem
         }
+        
+        hideKeyboardWhenTappedAround()
     }
     
     
@@ -50,9 +52,9 @@ class AddAdventureViewController: UIViewController, UINavigationControllerDelega
         view.addSubview(child.view)
         child.didMove(toParent: self)
         
-        DatabaseService.shared.saveNewAdventure(locationID: locationIDFromQR, usersNotes: usersNotesToSave, userID: (currentUser?.uid)!) { (newAdventureDocumentID, success) in
-            if newAdventureDocumentID != nil && success == true {
-                StorageService.shared.saveUsersAdventurePhoto(userID: (self.currentUser?.uid)!, takenPhoto: self.takenPhoto, adventureID: newAdventureDocumentID!) {(success) in
+        DatabaseService.shared.saveNewAdventure(locationID: locationIDFromQR, usersNotes: usersNotesToSave, userID: (currentUser?.uid)!) { (newAdventureDocumentID /*success*/) in
+            if let newAdventureDocumentID = newAdventureDocumentID  {
+                StorageService.shared.saveUsersAdventurePhoto(userID: (self.currentUser?.uid)!, takenPhoto: self.takenPhoto, adventureID: newAdventureDocumentID) {(success) in
                     if success == true {
                         print("everything should be saved... go and check!")
                         
@@ -76,11 +78,8 @@ class AddAdventureViewController: UIViewController, UINavigationControllerDelega
             return
         }
         
-        takenPhoto = photo
-        // print out the image size as a test
-        print(takenPhoto.size)
-        
-        
+        takenPhoto = photo.resized(toWidth: self.view.frame.size.width)
+        print("newPhoto has size: \(takenPhoto.size)")
         changeViewAfterPhotoAdded()
     }
     
@@ -90,9 +89,26 @@ class AddAdventureViewController: UIViewController, UINavigationControllerDelega
         adventureButton.isEnabled = true
         adventureButton.backgroundColor = #colorLiteral(red: 1, green: 0.2917113326, blue: 0.3214161505, alpha: 1)
     }
-    
-    
-    
+}
+
+extension UIImage {
+    func resized(toWidth width: CGFloat) -> UIImage? {
+        let canvas = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+        return UIGraphicsImageRenderer(size: canvas, format: imageRendererFormat).image {
+            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        }
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
     
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+}
 

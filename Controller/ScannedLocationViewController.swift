@@ -29,6 +29,7 @@ class ScannedLocationViewController: UIViewController {
         
         if let locationIDFromQR = locationIDFromQR {
             populateLocationFields(locationID: locationIDFromQR)
+            populateLocationImageView(locationID: locationIDFromQR)
         } else {
             print("Could not get locationIDFromQR")
         }
@@ -52,6 +53,12 @@ class ScannedLocationViewController: UIViewController {
             child.willMove(toParent: nil)
             child.view.removeFromSuperview()
             child.removeFromParent()
+        }
+    }
+    
+    func populateLocationImageView(locationID:String) {
+        StorageService.shared.retrieveLocationImage(locationID: locationID) { (photo) in
+            self.locationImageView.image = photo
         }
     }
 
