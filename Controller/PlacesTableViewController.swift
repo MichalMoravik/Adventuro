@@ -21,7 +21,6 @@ class PlacesTableViewController: UITableViewController {
     }
 
     func getAllAdventures(){
-        let child = SpinnerViewController()
         SpinnerViewController.shared.startSpinner(targetViewController: self)
         DatabaseService.shared.getAllAdventuresFromDB(userID: (AuthenticationService.shared.currentUser?.uid)!) {(adventuresFromService) in
             self.allAdventures = adventuresFromService
