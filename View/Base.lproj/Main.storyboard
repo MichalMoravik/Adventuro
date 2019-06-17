@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EYy-hE-Y33">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -224,7 +224,6 @@
         <!--Navigation Controller-->
         <scene sceneID="1Xe-Aj-UF5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Sk4-To-KfQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="AI1-Lw-sDQ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="list" id="kYe-KB-UO6"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="M8a-5v-Fw8">
@@ -235,6 +234,7 @@
                         <segue destination="eQg-gb-Hpa" kind="relationship" relationship="rootViewController" id="Llw-B7-3C1"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sk4-To-KfQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="516"/>
         </scene>
@@ -287,7 +287,6 @@
         <!--Adventure Details View Controller-->
         <scene sceneID="0VW-UN-uxr">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fQW-yy-pGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="XGC-M9-sqB" customClass="AdventureDetailsViewController" customModule="Adventuro" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RAT-jx-TZa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1200"/>
@@ -386,6 +385,7 @@
                         <outlet property="usersPhotoImageView" destination="3NM-eD-qKA" id="UzF-Tb-BuX"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fQW-yy-pGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2301.5999999999999" y="755.62218890554732"/>
         </scene>
@@ -479,6 +479,6 @@
         <image name="list" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ce1-bA-ix7"/>
+        <segue reference="rct-oC-y0L"/>
     </inferredMetricsTieBreakers>
 </document>
