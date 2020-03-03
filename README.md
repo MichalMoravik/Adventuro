@@ -11,5 +11,5 @@ If the user downloaded Adventuro, he/she can scan a QR code at the location and 
 Furthermore, after seeing photo and description of the place, the user is able to take a selfie from this location, and save it to his personal collection of the places so when he or she opens the application, all locations wich were scanned via QR code are available (Tableview). After clickling particular location, the user is able to see his adventure in a form of location description and his selfie. 
 
 All data are saved in the database. My NoSQL Firestore has therefore two collections: "Users" and "Locations"
-
+The app is based on MVC architecture.
 
